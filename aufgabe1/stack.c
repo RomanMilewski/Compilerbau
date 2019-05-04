@@ -6,6 +6,10 @@
 
  struct StackElement* newElement(int in){
 	struct StackElement* new = (struct StackElement*) malloc(sizeof(struct StackElement));
+	if (new == NULL) {
+		fprintf(stderr, "Not enough Memory\n");
+        exit(-1);
+	}
 	new->data = in;
 	new->next = NULL;
 	return new;
@@ -13,7 +17,6 @@
 
 int stackInit(intstack_t* self)
 {
-	self->size = 0;
 	self->top = NULL;
 	return 0;
 }
@@ -59,23 +62,4 @@ int stackIsEmpty(const intstack_t* self)
 
 void stackPrint(const intstack_t* self)
 {
-}
-
-int main()
-{
-	intstack_t stack;
-
-	stackInit(&stack);
-	
-	stackPush(&stack, 1);
-	stackPush(&stack, 2);
-	stackPush(&stack, 3);
-	
-	while (!stackIsEmpty(&stack))
-		printf("%i\n", stackPop(&stack));
-	
-	stackPop(&stack);
-	
-	stackRelease(&stack);
-	return 0;
 }

@@ -3,13 +3,42 @@
 
 /* *** structures *********************************************************** */
 
-typedef /* muss noch definiert werden */ syntree_nid;
+/**Kurzbeschreibung:
+ * syntree_t verwaltet seine Knoten in einem Array, das mit syntree_nid 
+ * indiziert werden kann.
+ * node_t kann sowohl Zahlenknoten als auch Containerknoten sein.
+ * Ein Containerknoten kennt mit tag_t den rechtesten und linkesten Knoten
+ * seines Inhalts.
+ */
+
+enum nodetype {NUMBERNODE, TAGNODE};
+
+typedef int syntree_nid;
+
+typedef struct
+{
+	syntree_nid nodeLeft;
+	syntree_nid nodeRight;
+} tag_t;
+
+typedef struct
+{
+	enum nodetype type;
+	union content
+	{
+		int number;
+		tag_t tag;
+	} data;
+	syntree_nid prevNode;
+	syntree_nid nextNode;
+} node_t;
 
 /**@brief Struktur des abstrakten Syntaxbaumes.
  */
 typedef struct
 {
-    /* hier sollte noch etwas dazu kommen */
+	syntree_nid index;
+    node_t* nodes;
 } syntree_t;
 
 /* *** interface ************************************************************ */

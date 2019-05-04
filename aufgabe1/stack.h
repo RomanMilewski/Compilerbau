@@ -7,7 +7,6 @@
  */
 typedef struct
 {
-    int size;
     struct StackElement* top;
 } intstack_t;
 struct StackElement 
